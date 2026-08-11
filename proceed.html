@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet Adoption Form</title>
+    <style>
+      /* General Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+        background: white;
+        position: relative;
+        padding-top: 300px;
+      }
+
+      /* Navigation Bar */
+      nav {
+        background-color: white;
+        color: black;
+        padding: 15px 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        width: 180px;
+        height: auto;
+      }
+
+      nav ul {
+        list-style-type: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      nav ul li {
+        display: inline;
+      }
+
+      nav ul li a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 15px;
+        transition: color 0.3s ease;
+      }
+
+      nav ul li a:hover {
+        color: red;
+      }
+
+      .nav-btn {
+        background: #e91e63;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .nav-btn:hover {
+        background: black;
+      }
+
+      /* Form Container */
+      .container {
+        width: 90%;
+        max-width: 900px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .form-box {
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        color: #e91e63; /* Pink title */
+        margin-bottom: 25px;
+      }
+
+      label {
+        display: block;
+        font-size: 1rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #555;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        background-color: #f9f9f9;
+        color: #333;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: #999;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: #e91e63;
+        box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
+      }
+
+      /* Custom Radio Buttons */
+      .radio-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .radio-group label {
+        margin-right: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        color: #555;
+        display: flex;
+        align-items: center;
+      }
+
+      .radio-group input[type="radio"] {
+        appearance: none; /* Hide default radio button */
+        width: 8px; /* Smaller size */
+        height: 8px; /* Smaller size */
+        border: 2px solid rgb(120, 113, 113);
+        border-radius: 50%;
+        margin-right: 5px;
+        cursor: pointer;
+        position: relative;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+
+      .radio-group input[type="radio"]:checked {
+        background-color: #e91e63;
+        border-color: #e91e63;
+      }
+
+      .radio-group input[type="radio"]:checked::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 6px; /* Smaller dot */
+        height: 6px; /* Smaller dot */
+        background-color: white;
+        border-radius: 50%;
+      }
+
+      .submit-btn {
+        width: 100%;
+        background-color: #e91e63;
+        color: white;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        background-color: #d81b60;
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .container {
+          width: 95%;
+        }
+
+        .form-box {
+          padding: 30px;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <img src="logo.jpg" alt="Logo" class="logo" />
+      <ul>
+        <li><a href="home.html">HOME</a></li>
+        <li><a href="adoptpet.html">ADOPT A PET</a></li>
+        <li><a href="about.html">ABOUT US</a></li>
+        <li><a href="vet_consult.html">VETERINARY</a></li>
+        <li><a href="donate.html">DONATE</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li>
+          <a href="registration.html" class="nav-btn">SIGN IN / SIGN UP</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Form Container -->
+    <div class="container">
+      <div class="form-box">
+        <h2>Adopt a Pet</h2>
+        <form action="adopt.php" method="POST">
+          <label for="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            placeholder="Enter your first name"
+            required
+          />
+
+          <label for="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            placeholder="Enter your last name"
+            required
+          />
+
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+
+          <label>Do You Own Pets?</label>
+          <div class="radio-group">
+            <input type="radio" id="yes" name="pet" value="yes" />
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" name="pet" value="no" />
+            <label for="no">No</label>
+          </div>
+
+          <label for="reason">Why do you want to adopt a pet?</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            placeholder="Tell us why you want to adopt a pet"
+            required
+          ></textarea>
+
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Form Submission Handling
+      document
+        .getElementById("adoption-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          // Retrieve form data
+          const formData = new FormData(event.target);
+          const data = Object.fromEntries(formData.entries());
+
+          // Log form data to the console (for debugging)
+          console.log("Form Data:", data);
+
+          // Display a success message
+          alert("Thank you for your submission! We will contact you soon.");
+
+          // Reset the form
+          event.target.reset();
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet Adoption Login</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        padding-top: 200px;
+      }
+
+      nav {
+        background-color: white;
+        color: black;
+        padding: 15px 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        width: 180px;
+        height: auto;
+      }
+
+      nav ul {
+        list-style-type: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      nav ul li {
+        display: inline;
+      }
+
+      nav ul li a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 15px;
+        transition: color 0.3s ease;
+      }
+
+      nav ul li a:hover {
+        color: red;
+      }
+
+      .nav-btn {
+        background: #e91e63;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .nav-btn:hover {
+        background: black;
+      }
+
+      .container {
+        width: 350px;
+        background: white;
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .logo1 {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .logo1 img {
+        width: 70%;
+      }
+
+      .toggle-buttons {
+        display: flex;
+        justify-content: space-between;
+        background: #3b2d1f;
+        border-radius: 30px;
+        padding: 5px;
+      }
+
+      .toggle-buttons button {
+        flex: 1;
+        border: none;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 30px;
+        cursor: pointer;
+        color: white;
+        background: none;
+        transition: 0.3s;
+      }
+
+      .toggle-buttons .active {
+        background: white;
+        color: #3b2d1f;
+      }
+
+      .form {
+        margin-top: 20px;
+      }
+
+      .form input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 20px;
+        background: rgba(0, 0, 0, 0.1);
+        font-size: 16px;
+        text-indent: 30px;
+        outline: none;
+      }
+
+      .form button {
+        width: 100%;
+        background: #e91e63;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 30px;
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .form button:hover {
+        background: #c72b5f;
+      }
+
+      .forgot-password {
+        color: black;
+        font-size: 14px;
+        text-align: right;
+        cursor: pointer;
+        margin-top: 5px;
+      }
+
+      .divider {
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+        text-align: center;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #3b2d1f;
+      }
+
+      .divider span {
+        margin: 0 10px;
+        color: #3b2d1f;
+        font-size: 14px;
+      }
+
+      .social-login {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .social-login i {
+        font-size: 20px;
+        color: white;
+        background: #3b2d1f;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .bottom-text a {
+        color: black;
+        text-decoration: none;
+        font-size: 15px;
+      }
+
+      /* Hide sign-up form initially */
+      #signup-form {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <img src="logo.jpg" alt="Logo" class="logo" />
+      <ul>
+        <li><a href="home.html">HOME</a></li>
+        <li><a href="adoptpet.html">ADOPT A PET</a></li>
+        <li><a href="about.html">ABOUT US</a></li>
+        <li><a href="vet_consult.html">VETERINARY</a></li>
+        <li><a href="donate.html">DONATE</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li>
+          <a href="registration.html" class="nav-btn">SIGN IN / SIGN UP</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <div class="logo1">
+        <img src="sign.jpg" alt="Pet Adoption" />
+      </div>
+
+      <div class="toggle-buttons">
+        <button id="signin-btn" class="active" onclick="showSignIn()">
+          Sign In
+        </button>
+        <button id="signup-btn" onclick="showSignUp()">Sign Up</button>
+      </div>
+
+      <div id="signin-form" class="form">
+        <p>Please sign in to continue</p>
+        <form action="login.php" method="POST">
+        <input type="text" name="email" id="email" placeholder="✉️ E mail / username" />
+        <input type="password" name="password" id="password" placeholder="🔒 Password" />
+        <button type="button" onclick="validateSignIn()">Sign In</button>
+      </form>
+        <div class="forgot-password" onclick="showForgotPassword()">Forgot password?</div>
+
+      </div>
+      
+      <!-- Forgot Password Form -->
+<div id="forgot-password-form" class="form" style="display: none;">
+  <p>Reset your password</p>
+  
+  <div class="input-group">
+    <input type="email" id="reset-email" placeholder="✉️ Enter your email" required />
+  </div>
+  
+  <button onclick="sendResetLink()">Send Reset Link</button>
+  <br /><br />
+  <div class="bottom-text">
+    <a href="#" onclick="showSignIn()">Back to Sign In</a>
+  </div>
+</div>
+
+
+      <div id="signup-form" class="form" style="display: none">
+        <p>Please sign up to continue</p>
+        <form action="register.php" method="POST">
+        <input
+          type="text"
+          name="email"
+          id="signup-email"
+          placeholder="✉️ E mail / username"
+        />
+        <input
+          type="password"
+          id="signup-password"
+          name="password"
+          placeholder="🔒 Password"
+        />
+        <input
+          type="password"
+          name="confirm_password"
+          id="confirm-password"
+          placeholder="🔒 Confirm password"
+        />
+        <div id="signup-message"></div>
+        <button type="button" onclick="validateSignUp()">Sign Up</button>
+      </div>
+    </form>
+      <div id="forgot-password-form" class="form" style="display: none">
+        <p>Reset your password</p>
+        <input
+          type="email"
+          id="reset-email"
+          placeholder="✉️ Enter your email"
+          required
+        />
+        <button onclick="sendResetLink()">Send Reset Link</button>
+        <br /><br />
+        <div class="bottom-text">
+          <a href="#" onclick="showSignIn()">Back to Sign In</a>
+        </div>
+      </div>
+      <br />
+      <div class="divider"><span>Or sign in using</span></div>
+      <div class="social-login">
+        <a href="#"><img src="google.png" alt="Google" width="30" /></a>
+        <a href="#"><img src="facebook.png" alt="Facebook" width="30" /></a>
+        <a href="#"><img src="twitter.png" alt="Twitter" width="30" /></a>
+      </div>
+    </div>
+
+    <script>
+      function showSignIn() {
+          document.getElementById("signin-form").style.display = "block";
+          document.getElementById("signup-form").style.display = "none";
+          document.getElementById("forgot-password-form").style.display = "none";
+          document.getElementById("signin-btn").classList.add("active");
+          document.getElementById("signup-btn").classList.remove("active");
+      }
+      
+      function showSignUp() {
+          document.getElementById("signin-form").style.display = "none";
+          document.getElementById("signup-form").style.display = "block";
+          document.getElementById("forgot-password-form").style.display = "none";
+          document.getElementById("signup-btn").classList.add("active");
+          document.getElementById("signin-btn").classList.remove("active");
+      }
+      
+      function showForgotPassword() {
+          // Hide sign-in and sign-up forms
+          document.getElementById("signin-form").style.display = "none";
+          document.getElementById("signup-form").style.display = "none";
+          // Show forgot password form
+          document.getElementById("forgot-password-form").style.display = "block";
+      }
+      
+      function sendResetLink() {
+          let email = document.getElementById("reset-email").value;
+          if (email) {
+              alert("Password reset link sent to " + email);
+              showSignIn(); // Return to sign-in after sending the link
+          } else {
+              alert("Please enter your email.");
+          }
+      }
+      function validateSignIn() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (email === "" || password === "") {
+    alert("Please enter all the details.");
+    return;
+  }
+
+  // Submit the form manually
+  document.querySelector("#signin-form form").submit();
+}
+function validateSignUp() {
+  const email = document.getElementById("signup-email").value.trim();
+  const password = document.getElementById("signup-password").value.trim();
+  const confirmPassword = document.getElementById("confirm-password").value.trim();
+
+  if (email === "" || password === "" || confirmPassword === "") {
+    alert("Please enter all the details.");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  // Optionally, add password strength check here
+
+  // Submit the form manually
+  document.querySelector("#signup-form form").submit();
+}
+
+      </script>
+     
+    
+  </body>
+</html>

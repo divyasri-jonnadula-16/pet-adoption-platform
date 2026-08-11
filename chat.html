@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Chat with Vet</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+      }
+
+      .chat-container {
+        width: 400px;
+        height: 550px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .chat-header {
+        background: #007bff;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .chat-box {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        scrollbar-width: thin;
+      }
+
+      .message {
+        max-width: 75%;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 14px;
+        animation: fadeIn 0.3s ease-in-out;
+      }
+
+      .user {
+        align-self: flex-end;
+        background: #ff7e5f;
+        color: white;
+      }
+
+      .vet {
+        align-self: flex-start;
+        background: #e4e6eb;
+        color: black;
+      }
+
+      .typing {
+        font-style: italic;
+        color: gray;
+      }
+
+      .chat-input {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #ddd;
+      }
+
+      .chat-input input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .send-btn {
+        background: #ff7e5f;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        margin-left: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .send-btn:hover {
+        background: #ff3e78;
+      }
+
+      @media (max-width: 480px) {
+        .chat-container {
+          width: 90%;
+          height: 90vh;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-header">Live Chat with a Vet</div>
+      <div class="chat-box" id="chatBox">
+        <div class="message vet">Hello! How can I help your pet today?</div>
+      </div>
+      <div class="chat-input">
+        <input
+          type="text"
+          placeholder="Type your message..."
+          id="messageInput"
+        />
+        <button class="send-btn" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <script>
+      const chatBox = document.getElementById("chatBox");
+      let currentStep = 0;
+      let petSymptoms = "";
+
+      function sendMessage() {
+        let input = document.getElementById("messageInput");
+        let messageText = input.value.trim();
+
+        if (messageText) {
+          addMessage(messageText, "user");
+          input.value = "";
+
+          setTimeout(() => handleVetResponse(messageText.toLowerCase()), 1000);
+        }
+      }
+
+      function addMessage(text, sender) {
+        let message = document.createElement("div");
+        message.classList.add("message", sender);
+        message.textContent = text;
+        chatBox.appendChild(message);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+      function handleVetResponse(userInput) {
+        let response = "";
+
+        if (currentStep === 0) {
+          response =
+            "Hello! I'm Dr. PetVet. Can you describe your pet's symptoms?";
+          currentStep = 1;
+        } else if (currentStep === 1) {
+          petSymptoms = userInput;
+          response = `I see. How long has your pet been experiencing ${petSymptoms}? (e.g., a few hours, a day, several days)`;
+          currentStep = 2;
+        } else if (currentStep === 2) {
+          response =
+            "Got it. Is your pet eating and drinking normally? (Yes/No)";
+          currentStep = 3;
+        } else if (currentStep === 3) {
+          if (userInput.includes("no")) {
+            response =
+              "Lack of appetite can be serious. Keep your pet hydrated. If they refuse water, you may need to visit a vet soon.";
+          } else {
+            response =
+              "That's a good sign! Keep monitoring their condition. Is your pet active or behaving unusually tired?";
+          }
+          currentStep = 4;
+        } else if (currentStep === 4) {
+          if (userInput.includes("tired")) {
+            response =
+              "Unusual tiredness can indicate infection or dehydration. Try offering light food and water, and monitor their temperature.";
+          } else {
+            response =
+              "That’s great! If the symptoms persist, a check-up might still be a good idea.";
+          }
+          currentStep = 5;
+        } else {
+          response =
+            "If symptoms continue or worsen, please visit a vet. Let me know if you need further advice!";
+          currentStep = 0; // Reset for a new conversation
+        }
+
+        addMessage(response, "vet");
+      }
+    </script>
+  </body>
+</html>

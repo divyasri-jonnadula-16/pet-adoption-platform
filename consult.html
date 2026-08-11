@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vet Consultation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: white;
+        text-align: center;
+      }
+
+      /* Navigation Bar */
+      nav {
+        background-color: white;
+        color: black;
+        padding: 15px 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        width: 180px;
+        height: auto;
+      }
+
+      nav ul {
+        list-style-type: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      nav ul li {
+        display: inline;
+      }
+
+      nav ul li a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 15px;
+        transition: color 0.3s ease;
+      }
+
+      nav ul li a:hover {
+        color: red;
+      }
+
+      .nav-btn {
+        background: #e91e63;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .nav-btn:hover {
+        background: black;
+      }
+
+
+      .container {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .heading {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .subtext {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 20px;
+      }
+
+      /* Form Styling */
+      .form-container {
+        background: white;
+        padding: 25px;
+        width: 400px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: left;
+      }
+
+      .form-container label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .form-container input,
+      .form-container select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .submit-btn {
+        display: block;
+        width: 100%;
+        background: linear-gradient(135deg, #ff7e5f, #ff3e78);
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .submit-btn:hover {
+        background: linear-gradient(135deg, #ff3e78, #ff7e5f);
+        box-shadow: 0 4px 10px rgba(255, 62, 120, 0.3);
+        transform: translateY(-2px);
+      }
+
+      /* Chat & Video Section */
+      .extras {
+        margin-top: 30px;
+        text-align: center;
+      }
+
+      .extras a {
+        display: inline-block;
+        background: #007bff;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+        margin: 5px;
+      }
+
+      .extras a:hover {
+        background: #0056b3;
+      }
+
+      /* Responsive */
+      @media (max-width: 480px) {
+        .form-container {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <img src="logo.jpg" alt="Logo" class="logo" />
+      <ul>
+        <li><a href="home.html">HOME</a></li>
+        <li><a href="adoptpet.html">ADOPT A PET</a></li>
+        <li><a href="about.html">ABOUT US</a></li>
+        <li><a href="vet_consult.html">VETERINARY</a></li>
+        <li><a href="donate.html">DONATE</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li>
+          <a href="registration.html" class="nav-btn">SIGN IN / SIGN UP</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <h1 class="heading">Book a Veterinary Consultation</h1>
+      <p class="subtext">Get expert advice from our veterinarians online</p>
+
+      <div class="form-container">
+        <form action="book.php" method="POST">
+          <label for="petName">Pet's Name</label>
+          <input
+            type="text"
+            name="name"
+            id="petName"
+            placeholder="Enter your pet's name"
+            required
+          />
+
+          <label for="petType">Pet Type</label>
+          <select id="petType" name="type" required>
+            <option value="">Select Type</option>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="rabbit">Rabbit</option>
+            <option value="bird">Bird</option>
+            <option value="other">Other</option>
+          </select>
+
+          <label for="date">Preferred Date</label>
+          <input type="date" name="date" id="date" required />
+
+          <label for="time">Preferred Time</label>
+          <input type="time" name="time" id="time" required />
+
+          <button type="submit" class="submit-btn">Book Appointment</button>
+      </div>
+    </form>
+
+      <!-- Extra Features: Live Chat & Video Consultation -->
+      <div class="extras">
+        <a href="chat.html">Live Chat with a Vet</a>
+        <a href="video_consult.html">Video Consultation</a>
+      </div>
+    </div>
+  </body>
+</html>

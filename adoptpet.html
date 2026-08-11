@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adopt a Pet</title>
+    <style>
+      /* General Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: white;
+        color: #333;
+        padding-top: 80px;
+      }
+
+      /* Navigation Bar */
+      nav {
+        background-color: white;
+        color: black;
+        padding: 15px 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Pushes logo to the left and links to the right */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
+      }
+
+      /* Logo Styling */
+      .logo {
+        width: 180px; /* Adjust width as needed */
+        height: auto;
+      }
+
+      nav ul {
+        list-style-type: none;
+        display: flex;
+        gap: 20px; /* Adds space between menu items */
+      }
+
+      nav ul li {
+        display: inline;
+      }
+
+      nav ul li a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 15px;
+        transition: color 0.3s ease;
+      }
+
+      nav ul li a:hover {
+        color: red;
+      }
+
+      /* If we are on the homepage, apply the .active class to the Home link */
+      nav ul li a.active {
+        color: blue; /* Home link color when active */
+        font-weight: bold; /* You can make it bold or style it differently */
+      }
+
+      .nav-btn {
+        background: #e91e63;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .nav-btn:hover {
+        background: black;
+      }
+
+      .main-container {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 36px;
+        color: #e91e63;
+        margin-bottom: 40px;
+      }
+
+      .filter-section {
+        margin-bottom: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .filter-section select,
+      .filter-section input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+      }
+
+      .filter-section button {
+        background-color: #e91e63;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .filter-section button:hover {
+        background-color: #e91e63;
+      }
+
+      .pet-listing {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        justify-content: center;
+        transition: grid-template-columns 0.3s ease;
+      }
+
+      .pet-card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        width: 90%;
+        max-width: 350px;
+        margin: 0 auto;
+      }
+
+      .pet-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .pet-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .pet-info {
+        padding: 20px;
+        text-align: center;
+      }
+
+      .pet-info h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #e91e63;
+      }
+
+      .pet-info p {
+        font-size: 16px;
+        color: #777;
+        margin-bottom: 10px;
+      }
+
+      .cta-button {
+        background-color: #e91e63;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+      }
+
+      .cta-button:hover {
+        background-color: #e91e63;
+      }
+
+      /* Additional details styling */
+      .additional-info {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #555;
+        text-align: left;
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      .additional-info p {
+        margin: 5px 0;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      /* Responsive Layout */
+      @media (max-width: 768px) {
+        .filter-section {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <img src="logo.jpg" alt="Logo" class="logo" />
+      <ul>
+        <li><a href="home.html">HOME</a></li>
+        <li><a href="adoptpet.html">ADOPT A PET</a></li>
+        <li><a href="about.html">ABOUT US</a></li>
+        <li><a href="vet_consult.html">VETERINARY</a></li>
+        <li><a href="donate.html">DONATE</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li>
+          <a href="registration.html" class="nav-btn">SIGN IN / SIGN UP</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="main-container">
+      <h1>Adopt a Pet</h1>
+
+      <div class="filter-section">
+        <select id="pet-type" onchange="updateBreedOptions()">
+          <option value="">Select Pet Type</option>
+          <option value="dog">Dog</option>
+          <option value="cat">Cat</option>
+          <option value="rabbit">Rabbit</option>
+          <option value="bird">Bird</option>
+        </select>
+        <select id="breed">
+          <option value="">Select Breed</option>
+        </select>
+        <select id="age-group">
+          <option value="">Select Age Group</option>
+          <option value="puppy">Puppy/Kitten</option>
+          <option value="adult">Adult</option>
+          <option value="senior">Senior</option>
+        </select>
+        <button onclick="applyFilters()">Apply Filters</button>
+      </div>
+
+      <div class="pet-listing">
+        <!-- Pet card 1 -->
+        <!-- Pet card - Buddy (Labrador Retriever) -->
+        <div
+          class="pet-card"
+          data-type="dog"
+          data-breed="Labrador Retriever"
+          data-age="adult"
+          data-name="Buddy"
+          data-age-text="2 years"
+          data-description="Friendly and playful, great with kids."
+          data-image="dog5.jpg"
+          data-price="$500"
+          data-info="Fully vaccinated and comes with a health certificate."
+          data-gender="Male"
+          data-location="New York"
+          data-vaccinated="Yes"
+          data-disease="Good"
+          data-food-image="drykibble.jpg"
+          data-food-description="High-protein dry kibble with essential nutrients for muscle growth and joint health."
+        >
+          <img src="dog5.jpg" alt="Dog 5" />
+          <div class="pet-info">
+            <h2>Buddy</h2>
+            <p>2 years old, Labrador Retriever</p>
+            <p><strong>Price:</strong> $500</p>
+            <p>Fully vaccinated and comes with a health certificate.</p>
+            <br />
+            <a
+              href="petdetails.html"
+              class="cta-button"
+              onclick="adoptPet(event)"
+            >
+              Adopt Me
+            </a>
+          </div>
+        </div>
+
+        <!-- Pet card 2 -->
+        <!-- Pet card - Whiskers (Maine Coon) -->
+        <div
+          class="pet-card"
+          data-type="cat"
+          data-breed="Maine Coon"
+          data-age="adult"
+          data-name="Whiskers"
+          data-age-text="3 years"
+          data-description="Gentle and affectionate, loves to be pampered."
+          data-image="cat3.jpg"
+          data-price="$400"
+          data-info="Needs a calm household with experienced cat owners."
+          data-gender="Female"
+          data-location="Los Angeles"
+          data-vaccinated="Yes"
+          data-disease="Good"
+          data-food-image="maine-coon-food.jpg"
+          data-food-description="Nutrient-rich wet food with high protein content and omega fatty acids for a healthy coat."
+        >
+          <img src="cat3.jpg" alt="Cat 3" />
+          <div class="pet-info">
+            <h2>Whiskers</h2>
+            <p>3 years old, Maine Coon</p>
+            <p><strong>Price:</strong> $400</p>
+            <p>Needs a calm household with experienced cat owners.</p>
+            <br />
+            <a
+              href="petdetails.html"
+              class="cta-button"
+              onclick="adoptPet(event)"
+              >Adopt Me</a
+            >
+          </div>
+        </div>
+
+        <!-- Pet card 3 -->
+        <!-- Pet card - Thumper (Flemish Giant) -->
+        <div
+          class="pet-card"
+          data-type="rabbit"
+          data-breed="Flemish Giant"
+          data-age="adult"
+          data-name="Thumper"
+          data-age-text="4 years"
+          data-description="Friendly, loves being outside."
+          data-image="rabbit1.jpg"
+          data-price="$300"
+          data-info="Requires lots of space and room to hop around."
+          data-gender="Male"
+          data-location="Chicago"
+          data-vaccinated="No"
+          data-disease="Good"
+          data-food-image="flemish-giant-food.jpg"
+          data-food-description="A balanced diet of fresh hay, leafy greens, and high-fiber pellets to support digestive health."
+        >
+          <img src="rabbit1.jpg" alt="Rabbit 1" />
+          <div class="pet-info">
+            <h2>Thumper</h2>
+            <p>4 years old, Flemish Giant</p>
+            <p><strong>Price:</strong> $300</p>
+            <p>Requires lots of space and room to hop around.</p>
+            <br />
+            <a
+              href="petdetails.html"
+              class="cta-button"
+              onclick="adoptPet(event)"
+              >Adopt Me</a
+            >
+          </div>
+        </div>
+
+        <!-- Pet card 4 -->
+        <!-- Pet card - Sunny (Cockatiel) -->
+        <div
+          class="pet-card"
+          data-type="bird"
+          data-breed="Cockatiel"
+          data-age="young"
+          data-name="Sunny"
+          data-age-text="1 year"
+          data-description="Sweet and playful, enjoys singing."
+          data-image="bird1.jpg"
+          data-price="$150"
+          data-info="Perfect for families and apartment living."
+          data-gender="Male"
+          data-location="Miami"
+          data-vaccinated="Yes"
+          data-disease="Good"
+          data-food-image="cockatiel-food.jpg"
+          data-food-description="A nutritious mix of seeds, fresh fruits, and leafy greens to keep your Cockatiel healthy and active."
+        >
+          <img src="bird1.jpg" alt="Bird 1" />
+          <div class="pet-info">
+            <h2>Sunny</h2>
+            <p>1 year old, Cockatiel</p>
+            <p><strong>Price:</strong> $150</p>
+            <p>Perfect for families and apartment living.</p>
+            <br />
+            <a
+              href="petdetails.html"
+              class="cta-button"
+              onclick="adoptPet(event)"
+              >Adopt Me</a
+            >
+          </div>
+        </div>
+
+        <!-- Pet card 5 -->
+        <div
+          class="pet-card"
+          data-type="dog"
+          data-breed="Beagle"
+          data-age="puppy"
+          data-name="Charlie"
+          data-age-text="6 months"
+          data-description="Energetic and curious, great for active families."
+          data-image="dog6.jpg"
+          data-price="$450"
+          data-info="Vaccinated and microchipped, ready for adoption."
+          data-gender="Female"
+          data-location="Dallas"
+          data-vaccinated="Yes"
+          data-disease="Good"
+          data-food-image="beagle-food.jpg"
+          data-food-description="High-quality puppy kibble rich in protein and essential vitamins to support Charlie’s growth and energy needs."
+        >
+          <img src="dog6.jpg" alt="Dog 6" />
+          <div class="pet-info">
+            <h2>Charlie</h2>
+            <p>6 months old, Beagle</p>
+            <p><strong>Price:</strong> Free</p>
+            <p>Vaccinated and microchipped, ready for adoption.</p>
+            <br />
+            <a
+              href="petdetails.html"
+              class="cta-button"
+              onclick="adoptPet(event)"
+              >Adopt Me</a
+            >
+          </div>
+        </div>
+
+        <!-- Pet card 6 -->
+        <div
+          class="pet-card"
+          data-type="cat"
+          data-breed="Persian"
+          data-age="adult"
+          data-name="Luna"
+          data-age-text="2 years"
+          data-description="Calm, independent, loves to lounge."
+          data-image="cat5.jpg"
+          data-price="$500"
+          data-info="Needs a quiet home, no children or other pets."
+          data-gender="Female"
+          data-location="San Francisco"
+          data-vaccinated="Yes"
+          data-disease="Good"
+          data-food-image="persian-cat-food.jpg"
+          data-food-description="Specialized Persian cat food with high-quality protein, omega-3 & omega-6 for a healthy coat, and digestive support."
+        >
+          <img src="cat5.jpg" alt="Cat 5" />
+          <div class="pet-info">
+            <h2>Luna</h2>
+            <p>2 years old, Persian</p>
+            <p><strong>Price:</strong> $500</p>
+            <p>Needs a quiet home, no children or other pets.</p>
+            <br />
+            <a
+              href="petdetails.html"
+              class="cta-button"
+              onclick="adoptPet(event)"
+              >Adopt Me</a
+            >
+          </div>
+        </div>
+
+        <!-- Pet card 7 -->
+        <div
+          class="pet-card"
+          data-type="dog"
+          data-breed="Golden Retriever"
+          data-age="senior"
+          data-name="Max"
+          data-age-text="8 years"
+          data-description="Loyal and gentle, enjoys quiet walks."
+          data-image="dog1.jpg"
+          data-price="$250"
+          data-info="Well-behaved and calm, good for senior owners."
+          data-gender="Male"
+          data-location="Boston"
+          data-vaccinated="Yes"
+          data-disease="Good"
+          data-food-image="senior-dog-food.jpg"
+          data-food-description="Specialized senior dog food with joint support, easy-to-digest proteins, and essential vitamins for aging Golden Retrievers."
+        >
+          <img src="dog1.jpg" alt="Dog 1" />
+          <div class="pet-info">
+            <h2>Max</h2>
+            <p>8 years old, Golden Retriever</p>
+            <p><strong>Price:</strong> Free</p>
+            <p>Well-behaved and calm, good for senior owners.</p>
+            <br />
+            <a
+              href="petdetails.html"
+              class="cta-button"
+              onclick="adoptPet(event)"
+              >Adopt Me</a
+            >
+          </div>
+        </div>
+
+        <!-- Pet card 8 -->
+        <!-- Pet card - Fluffy (Angora Rabbit) -->
+        <div
+          class="pet-card"
+          data-type="rabbit"
+          data-breed="Angora"
+          data-age="puppy"
+          data-name="Fluffy"
+          data-age-text="6 months"
+          data-description="Soft and playful, loves cuddling."
+          data-image="rabbit2.jpg"
+          data-price="$200"
+          data-info="Needs a calm and spacious home."
+          data-gender="Female"
+          data-location="Seattle"
+          data-vaccinated="Good"
+          data-food-image="rabbit-food.jpg"
+          data-food-description="Timothy hay, leafy greens, and high-fiber pellets to support digestion and maintain a healthy coat."
+        >
+          <img src="rabbit2.jpg" alt="Rabbit 2" />
+          <div class="pet-info">
+            <h2>Fluffy</h2>
+            <p>6 months old, Angora</p>
+            <p><strong>Price:</strong> $200</p>
+            <p>Needs a calm and spacious home.</p>
+            <br />
+            <a
+              href="petdetails.html"
+              class="cta-button"
+              onclick="adoptPet(event)"
+              >Adopt Me</a
+            >
+          </div>
+        </div>
+
+        <!-- Pet card 9 -->
+        <!-- Pet card 9 - Peppy (Parakeet) -->
+        <div
+          class="pet-card"
+          data-type="bird"
+          data-breed="Parakeet"
+          data-age="adult"
+          data-name="Peppy"
+          data-age-text="2 years"
+          data-description="Charming and colorful, enjoys company."
+          data-image="bird4.jpg"
+          data-price="$75"
+          data-info="A sociable pet, loves attention."
+          data-gender="Male"
+          data-location="Austin"
+          data-vaccinated="Yes"
+          data-disease="Good"
+          data-food-image="parakeet-food.jpg"
+          data-food-description="A mix of high-quality seeds, pellets, fresh fruits, and vegetables for balanced nutrition."
+        >
+          <img src="bird4.jpg" alt="Bird 4" />
+          <div class="pet-info">
+            <h2>Peppy</h2>
+            <p>2 years old, Parakeet</p>
+            <p><strong>Price:</strong> $75</p>
+            <p>A sociable pet, loves attention.</p>
+            <br />
+            <a
+              href="petdetails.html"
+              class="cta-button"
+              onclick="adoptPet(event)"
+              >Adopt Me</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const breedOptions = {
+        dog: ["Labrador Retriever", "Golden Retriever", "Beagle", "Bulldog"],
+        cat: ["Domestic Shorthair", "Persian", "Maine Coon", "Siamese"],
+        rabbit: ["Dwarf Rabbit", "Lop", "Angora", "Flemish Giant"],
+        bird: ["Parakeet", "Cockatiel", "Canary", "Finch"],
+      };
+
+      function updateBreedOptions() {
+        const petType = document.getElementById("pet-type").value;
+        const breedSelect = document.getElementById("breed");
+
+        breedSelect.innerHTML = '<option value="">Select Breed</option>';
+
+        if (petType && breedOptions[petType]) {
+          breedOptions[petType].forEach((breed) => {
+            const option = document.createElement("option");
+            option.value = breed;
+            option.textContent = breed;
+            breedSelect.appendChild(option);
+          });
+        }
+      }
+
+      function applyFilters() {
+        const petType = document.getElementById("pet-type").value;
+        const breed = document.getElementById("breed").value;
+        const ageGroup = document.getElementById("age-group").value;
+
+        const petCards = document.querySelectorAll(".pet-card");
+
+        petCards.forEach((card) => {
+          const cardType = card.dataset.type;
+          const cardBreed = card.dataset.breed;
+          const cardAge = card.dataset.age;
+
+          if (
+            (petType === "" || cardType === petType) &&
+            (breed === "" || cardBreed === breed) &&
+            (ageGroup === "" || cardAge === ageGroup)
+          ) {
+            card.classList.remove("hidden");
+          } else {
+            card.classList.add("hidden");
+          }
+        });
+      }
+
+      function adoptPet(event) {
+        event.preventDefault();
+
+        const petCard = event.target.closest(".pet-card");
+
+        const petDetails = {
+          name: petCard.dataset.name,
+          age: petCard.dataset.age,
+          breed: petCard.dataset.breed,
+          description: petCard.dataset.description,
+          image: petCard.dataset.image,
+          price: petCard.dataset.price,
+          info: petCard.dataset.info,
+          gender: petCard.dataset.gender,
+          location: petCard.dataset.location,
+          vaccinated: petCard.dataset.vaccinated,
+          disease: petCard.dataset.disease,
+          foodDescription: petCard.dataset.foodDescription, // Correctly access data-food-description
+        };
+
+        localStorage.setItem("selectedPet", JSON.stringify(petDetails));
+        window.location.href = "petdetails.html";
+      }
+    </script>
+  </body>
+</html>

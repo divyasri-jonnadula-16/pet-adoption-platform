@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Consultation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+      }
+
+      .video-container {
+        width: 500px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      video {
+        width: 100%;
+        height: 300px;
+        border-radius: 10px;
+        background: #ddd;
+      }
+
+      .controls {
+        margin-top: 10px;
+      }
+
+      .call-btn {
+        background: #007bff;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-size: 16px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .call-btn:hover {
+        background: #0056b3;
+      }
+
+      @media (max-width: 480px) {
+        .video-container {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="video-container">
+      <h1>Start Your Video Consultation</h1>
+      <br />
+      <video id="videoElement" autoplay></video>
+      <div class="controls">
+        <button class="call-btn" onclick="startVideo()">
+          Start Consultation
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function startVideo() {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then((stream) => {
+            document.getElementById("videoElement").srcObject = stream;
+          })
+          .catch((error) => alert("Camera access denied."));
+      }
+    </script>
+  </body>
+</html>

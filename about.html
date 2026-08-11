@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | Adöpt</title>
+
+    <style>
+      /* General Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: white;
+        color: #333;
+        overflow-x: hidden;
+        padding-top: 85px;
+      }
+
+      /* Navigation Bar */
+      nav {
+        background-color: white;
+        color: black;
+        padding: 15px 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Pushes logo to the left and links to the right */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
+      }
+
+      /* Logo Styling */
+      .logo {
+        width: 180px; /* Adjust width as needed */
+        height: auto;
+      }
+
+      nav ul {
+        list-style-type: none;
+        display: flex;
+        gap: 20px; /* Adds space between menu items */
+      }
+
+      nav ul li {
+        display: inline;
+      }
+
+      nav ul li a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 15px;
+        transition: color 0.3s ease;
+      }
+
+      nav ul li a:hover {
+        color: red;
+      }
+
+      /* If we are on the homepage, apply the .active class to the Home link */
+      nav ul li a.active {
+        color: blue; /* Home link color when active */
+        font-weight: bold; /* You can make it bold or style it differently */
+      }
+
+      .nav-btn {
+        background: #e91e63;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .nav-btn:hover {
+        background: black;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: url("cat.jpg") center/cover no-repeat;
+        height: 450px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        position: relative;
+        animation: fadeIn 1.5s ease-in-out;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        font-family: "AnimalPaws", sans-serif;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        position: relative;
+        z-index: 1;
+        animation: slideDown 1.2s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* About Section */
+      .about-container {
+        max-width: 1200px;
+        margin: 80px auto;
+        padding: 40px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        animation: slideUp 1s ease-in-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .about-text {
+        flex: 1;
+      }
+
+      .about-text h2 {
+        color: #e91e63;
+        font-size: 34px;
+        margin-bottom: 15px;
+      }
+
+      .about-text p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #555;
+      }
+
+      .about-img {
+        width: 420px;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Team Section */
+      .team-container {
+        text-align: center;
+        margin: 80px auto;
+        max-width: 1100px;
+      }
+
+      .team-container h2 {
+        font-size: 34px;
+        color: #e91e63;
+        margin-bottom: 20px;
+      }
+
+      .team {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+      }
+
+      .team-member {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 250px;
+      }
+
+      .team-member img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 12px;
+      }
+
+      .team-member h3 {
+        font-size: 20px;
+        color: #333;
+      }
+
+      .team-member p {
+        font-size: 14px;
+        color: #666;
+      }
+
+      /* Call to Action */
+      .cta {
+        text-align: center;
+        margin: 80px 0;
+      }
+
+      .cta a {
+        background: #e91e63;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .cta a:hover {
+        background: #d81b60;
+        transform: scale(1.05);
+      }
+
+      /* Footer */
+      footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 50px;
+      }
+
+      @media (max-width: 768px) {
+        .about-container {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .team {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <img src="logo.jpg" alt="Logo" class="logo" />
+      <ul>
+        <li><a href="home.html">HOME</a></li>
+        <li><a href="adoptpet.html">ADOPT A PET</a></li>
+        <li><a href="about.html">ABOUT US</a></li>
+        <li><a href="vet_consult.html">VETERINARY</a></li>
+        <li><a href="donate.html">DONATE</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li>
+          <a href="registration.html" class="nav-btn">SIGN IN / SIGN UP</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>Giving Every Pet a Loving Home</h1>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="about-container">
+      <div class="about-text">
+        <h2>Our Mission</h2>
+        <p>
+          We connect loving families with pets in need. Our platform partners
+          with shelters and rescue organizations to make adoption easy and
+          accessible.
+        </p>
+      </div>
+      <img src="rabbit.jpg" alt="Pets" class="about-img" />
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta">
+      <a href="volunteer.html">Become a Volunteer</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Adöpt | All Rights Reserved</p>
+    </footer>
+  </body>
+</html>
